@@ -74,21 +74,31 @@ class ProductManager {
 
     //-------------actualizo un producto por su id-------------
 
-    async updateProduct (id) {
+    async updateProduct(id, prop, newValue) {
         try {
             let dataProduct = await fs.promises.readFile(this.path, "utf8");
             let dataProductParse = JSON.parse(dataProduct);
-            let product = dataProductParse.indexOf(id)
-
+            let product = dataProductParse.findIndex(product => product.id === id)
+            if (product) {
+                dataProductParse[product][prop] = newValue
+                await fs.promises.writeFile(
+                    this.path,
+                    JSON.stringify(dataProductParse, null, 2)
+                )
+                return console.log(`Actualizado con exito!`);
+            } else {
+                console.log(`No existe el producto con el id ${id}`);
+                return null;
+            }
         } catch (error) {
-            console.log("error al eliminar el producto", error);
+            console.log("error al actualizar el producto", error);
         }
-            
+
     }
 
     //-------------Elimino un producto por su id-------------
 
-    async deleteProduct (id) {
+    async deleteProduct(id) {
         try {
             let dataProduct = await fs.promises.readFile(this.path, "utf8");
             let dataProductParse = JSON.parse(dataProduct);
@@ -109,7 +119,7 @@ class ProductManager {
         } catch (error) {
             console.log("error al eliminar el producto", error);
         }
-            
+
     }
 }
 
@@ -141,8 +151,18 @@ let productos = new ProductManager("./products.txt")
 //     code: 1787,
 //     stock: 88
 // })
+
+
+
+
+
+
 //productos.getProductById(2)
 
-productos.getProducts()
+//productos.getProducts()
 
-productos.getProductById(9)
+//productos.getProductById(9)
+
+//productos.updateProduct(2, "stock", 5)
+
+//productos.deleteProduct(3)
