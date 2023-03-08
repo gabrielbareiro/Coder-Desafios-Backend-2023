@@ -1,0 +1,29 @@
+[
+  {
+    "title": "manaos",
+    "description": "gaseosas",
+    "price": 450,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_716200-MLA43739181284_102020-O.jpg",
+    "code": 187,
+    "stock": 9,
+    "id": 1
+  },
+  {
+    "title": "banana",
+    "description": "fruta",
+    "price": 550,
+    "thumbnail": "https://www.cucinare.tv/wp-content/uploads/2020/08/Bananas1.jpg",
+    "code": 1787,
+    "stock": 88,
+    "id": 2
+  },
+  {
+    "title": "pitusas",
+    "description": "dulces",
+    "price": 170,
+    "thumbnail": "https://www.mialmacenamigo.com.ar/wp-content/uploads/0041-1.jpg",
+    "code": 787,
+    "stock": 2,
+    "id": 3
+  }
+]
