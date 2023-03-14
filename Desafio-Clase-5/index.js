@@ -11,7 +11,13 @@ class ProductManager {
         try {
             let dataProduct = await fs.promises.readFile(this.path, "utf8");
             let dataProductParse = JSON.parse(dataProduct);
-            if ((dataProductParse.some(num => num.code == product.code)) !== true) {
+            if ((dataProductParse.some(num => num.code == product.code)) !== true
+                && product.title !== ""
+                && product.description !== ""
+                && product.price > 0
+                && product.thumbnail !== ""
+                && product.stock >= 0
+            ) {
                 if (dataProductParse.length) {
                     await fs.promises.writeFile(
                         this.path,
@@ -46,8 +52,9 @@ class ProductManager {
         let dataProduct = await fs.promises.readFile(this.path, "utf8");
         let dataProductParse = JSON.parse(dataProduct);
         if (dataProductParse.length) {
-            let allProducts = dataProductParse.map(products => products.title);
-            return console.log(`los productos agregados son: \n${allProducts}`);
+
+            return dataProductParse;
+
         } else {
             console.log("No hay productos");
         }
@@ -62,7 +69,8 @@ class ProductManager {
             let dataProductParse = JSON.parse(dataProduct);
             let product = dataProductParse.find(product => product.id === id)
             if (product) {
-                return console.log(`el id corresponde al producto ${product.title}`);
+                console.log(`el id corresponde al producto ${product.title}`);
+                return product
             } else {
                 console.log(`No existe el producto con el id ${id}`);
                 return null;
@@ -79,13 +87,14 @@ class ProductManager {
             let dataProduct = await fs.promises.readFile(this.path, "utf8");
             let dataProductParse = JSON.parse(dataProduct);
             let product = dataProductParse.findIndex(product => product.id === id)
-            if (product) {
+            if (product > -1) {
                 dataProductParse[product][prop] = newValue
                 await fs.promises.writeFile(
                     this.path,
                     JSON.stringify(dataProductParse, null, 2)
                 )
-                return console.log(`Actualizado con exito!`);
+                console.log(`Actualizado con exito!`)
+                return product;
             } else {
                 console.log(`No existe el producto con el id ${id}`);
                 return null;
@@ -113,7 +122,7 @@ class ProductManager {
                 );
                 console.log("producto eliminado");
             } else {
-                console.log("producto eliminado");
+                console.log(`no existe un el producto con el id: ${id}`);
                 return null;
             }
         } catch (error) {
@@ -163,6 +172,6 @@ let productos = new ProductManager("./products.txt")
 
 //productos.getProductById(9)
 
-//productos.updateProduct(2, "stock", 5)
+//productos.updateProduct(1, "stock", 555)
 
 //productos.deleteProduct(3)

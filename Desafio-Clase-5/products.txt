@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "title": "pitusas",
+    "description": "dulces",
+    "price": 170,
+    "thumbnail": "https://www.mialmacenamigo.com.ar/wp-content/uploads/0041-1.jpg",
+    "code": 787,
+    "stock": 555,
+    "id": 1
+  }
+]
